@@ -13,7 +13,7 @@ puntos de mando durante tus batallas en el mundo de Warhammer Age of Sigmar.
 
 ## Capturas de pantalla
 
-![Captura de pantalla 1](screenshots/screenshot.png)
+![Captura de pantalla 1](screenshots/screenshot1.png)
 
 Contribución
 ¡Las contribuciones son bienvenidas! Si tienes alguna idea para mejorar la aplicación, sigue estos pasos:
