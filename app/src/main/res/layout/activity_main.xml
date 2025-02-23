@@ -16,16 +16,16 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <TextView
-        android:layout_marginTop="25dp"
         android:id="@+id/Contador1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/border_textview"
+        android:fontFamily="@font/digital_font"
         android:shadowColor="#003300"
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border_textview"
-        android:fontFamily="@font/digital_font"
         android:text="0"
         android:textAlignment="center"
         android:textColor="#00FF00"
@@ -37,7 +37,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="50dp"
         android:id="@+id/Contador2"
         android:shadowColor="#003300"
         android:shadowDx="2"
@@ -263,10 +263,10 @@
         android:backgroundTint="#D50000"
         android:text="Reset"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/Contador1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sumar1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/resetenemy"
@@ -275,10 +275,10 @@
         android:backgroundTint="#D50000"
         android:text="Reset"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/sumar1enemy" />
+        app:layout_constraintStart_toEndOf="@+id/Contador2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
