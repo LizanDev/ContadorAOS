@@ -42,35 +42,43 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            binding.reset.id -> resetear(v)
-            binding.resetenemy.id -> resetear(v)
-            binding.sumar1.id -> binding.Contador1.text =
-                (binding.Contador1.text.toString().toInt() + 1).toString()
-            binding.sumar2.id -> binding.Contador1.text =
-                (binding.Contador1.text.toString().toInt() + 2).toString()
-            binding.sumar5.id -> binding.Contador1.text =
-                (binding.Contador1.text.toString().toInt() + 5).toString()
-            binding.sumar1enemy.id -> binding.Contador2.text =
-                (binding.Contador2.text.toString().toInt() + 1).toString()
-            binding.sumar2enemy.id -> binding.Contador2.text =
-                (binding.Contador2.text.toString().toInt() + 2).toString()
-            binding.sumar5enemy.id -> binding.Contador2.text =
-                (binding.Contador2.text.toString().toInt() + 5).toString()
-            binding.commandplus1.id -> binding.combatpoints1.text =
-                (binding.combatpoints1.text.toString().toInt() + 1).toString()
-            binding.commandplus1enemy.id -> binding.combarpoints2.text =
-                (binding.combarpoints2.text.toString().toInt() + 1).toString()
-            binding.commandminus1.id -> binding.combatpoints1.text =
-                (binding.combatpoints1.text.toString().toInt() - 1).toString()
-            binding.commandminus1enemy.id -> binding.combarpoints2.text =
-                (binding.combarpoints2.text.toString().toInt() - 1).toString()
+        override fun onClick(v: View?) {
+            when (v?.id) {
+                binding.reset.id -> resetear(v)
+                binding.resetenemy.id -> resetear(v)
+                binding.sumar1.id -> binding.Contador1.text =
+                    (binding.Contador1.text.toString().toInt() + 1).toString()
+                binding.sumar2.id -> binding.Contador1.text =
+                    (binding.Contador1.text.toString().toInt() + 2).toString()
+                binding.sumar5.id -> binding.Contador1.text =
+                    (binding.Contador1.text.toString().toInt() + 5).toString()
+                binding.sumar1enemy.id -> binding.Contador2.text =
+                    (binding.Contador2.text.toString().toInt() + 1).toString()
+                binding.sumar2enemy.id -> binding.Contador2.text =
+                    (binding.Contador2.text.toString().toInt() + 2).toString()
+                binding.sumar5enemy.id -> binding.Contador2.text =
+                    (binding.Contador2.text.toString().toInt() + 5).toString()
+                binding.commandplus1.id -> binding.combatpoints1.text =
+                    (binding.combatpoints1.text.toString().toInt() + 1).toString()
+                binding.commandplus1enemy.id -> binding.combarpoints2.text =
+                    (binding.combarpoints2.text.toString().toInt() + 1).toString()
+                binding.commandminus1.id -> binding.combatpoints1.text =
+                    (binding.combatpoints1.text.toString().toInt() - 1).toString()
+                binding.commandminus1enemy.id -> binding.combarpoints2.text =
+                    (binding.combarpoints2.text.toString().toInt() - 1).toString()
 
+            }
+            v?.let { animarBoton(it) }
         }
-
     }
 
-}
+
+    private fun animarBoton(view: View) {
+        view.animate().scaleX(0.9f).scaleY(0.9f).setDuration(100).withEndAction {
+            view.animate().scaleX(1f).scaleY(1f).setDuration(100)
+        }
+    }
+
+
 
 
