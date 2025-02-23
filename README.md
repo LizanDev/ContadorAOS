@@ -1,6 +1,6 @@
 # Age of Sigmar Counter App
 
-![Age of Sigmar Logo](https://ageofsigmar.com/wp-content/themes/ageofsigmar/assets/images/logo.png)
+![Age of Sigmar Logo](screenshots/logo.png)
 
 Una aplicación simple y eficiente para llevar el seguimiento de contadores en partidas de **Age of Sigmar**. Esta herramienta está diseñada para facilitar la gestión de puntos de victoria y 
 puntos de mando durante tus batallas en el mundo de Warhammer Age of Sigmar.
@@ -13,9 +13,7 @@ puntos de mando durante tus batallas en el mundo de Warhammer Age of Sigmar.
 
 ## Capturas de pantalla
 
-![Captura de pantalla 1](screenshots/screenshot1.png)
-![Captura de pantalla 2](screenshots/screenshot2.png)
-
+![Captura de pantalla 1](screenshots/screenshot.png)
 
 Contribución
 ¡Las contribuciones son bienvenidas! Si tienes alguna idea para mejorar la aplicación, sigue estos pasos:
