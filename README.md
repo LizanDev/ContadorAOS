@@ -22,9 +22,9 @@ Esta es una aplicación de Android desarrollada en Kotlin que permite llevar la 
 ## Instalación
 
 1. Clona este repositorio:
-
+````
  git clone https://github.com/tu-usuario/nombre-del-repositorio.git
-
+````
 2. Abre el proyecto en Android Studio.
 
 3. Compila y ejecuta la aplicación en un dispositivo o emulador.
