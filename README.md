@@ -44,18 +44,14 @@ Esta es una aplicación de Android desarrollada en Kotlin que permite llevar la 
 * Android Studio: Entorno de desarrollo.
 
 ## Contribución
-Si deseas contribuir a este proyecto:
 
-1. Haz un fork del repositorio.
-
-2. Crea una nueva rama con tu funcionalidad (git checkout -b nueva-funcionalidad).
-
-3. Realiza tus cambios y haz commit (git commit -m 'Añadir nueva funcionalidad').
-
-4. Sube los cambios a tu fork (git push origin nueva-funcionalidad).
-
-5. Abre un Pull Request en este repositorio.
-
+> [!NOTE]
+> Si deseas contribuir a este proyecto:
+> 1. Haz un fork del repositorio.
+> 2. Crea una nueva rama con tu funcionalidad (git checkout -b nueva-funcionalidad).
+> 3. Realiza tus cambios y haz commit (git commit -m 'Añadir nueva funcionalidad')
+> 4. Sube los cambios a tu fork (git push origin nueva-funcionalidad).
+> 5. Abre un Pull Request en este repositorio.
 
 ## Autor
 
