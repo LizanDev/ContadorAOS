@@ -23,7 +23,7 @@ Esta es una aplicación de Android desarrollada en Kotlin que permite llevar la 
 
 1. Clona este repositorio:
 ````
- git clone https://github.com/tu-usuario/nombre-del-repositorio.git
+ git clone https://github.com/LizanDev/ContadorAOS.git
 ````
 2. Abre el proyecto en Android Studio.
 
