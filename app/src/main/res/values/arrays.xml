@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ejercitos">
+        <item>Forjados en la tormenta</item>
+        <item>Clanes Orruks</item>
+        <item>Esclavos de la oscuridad</item>
+        <item>Lumineth soberanos</item>
+        <item>Hijos de Behemat</item>
+        <item>Agusanados de Nurgle</item>
+        <item>Masticatribus Ogors</item>
+        <item>Necroseñores Pudrealmas</item>
+        <item>Tipejoz nokturnoz</item>
+        <item>Seraphones</item>
+        <item>Profundos Idoneth</item>
+        <item>Noctánimas</item>
+        <item>Sylvaneth</item>
+        <item>Discípulos de Tzeentch</item>
+        <item>Osiarcas Cosechahuesos</item>
+        <item>Cortes Comecarne</item>
+        <item>Hedonitas de Slaanesh</item>
+        <item>Filos de Khorne</item>
+        <item>Altos Señores Kharadron</item>
+        <item>Ciudades de Sigmar</item>
+        <item>Matafuegos</item>
+        <item>Hijas de Khaine</item>
+        <item>Skaven</item>
+    </string-array>
+</resources>
