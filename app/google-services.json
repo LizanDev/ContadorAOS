@@ -1,13 +1,14 @@
 {
   "project_info": {
     "project_number": "191939435309",
+    "firebase_url": "https://contadoraosdb-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "contadoraosdb",
     "storage_bucket": "contadoraosdb.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:191939435309:android:401d2b1047a97cee4c51a4",
+        "mobilesdk_app_id": "1:191939435309:android:8a0930ed9de0bddb4c51a4",
         "android_client_info": {
           "package_name": "com.uax.contador_aos"
         }
