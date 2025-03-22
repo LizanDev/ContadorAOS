@@ -14,8 +14,10 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity(), OnClickListener {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var selectedArmy1: String
+    private lateinit var selectedArmy2: String
 
-    // Player information
+    // Informacion de los jugadores
     private var jugador1Nombre: String = ""
     private var jugador1Ejercito: String = ""
     private var jugador2Nombre: String = ""
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Retrieve player information from intent
+        // datos de los jugadores que pasaremos a la siguiente pantalla
         jugador1Nombre = intent.getStringExtra("JUGADOR1_NOMBRE") ?: ""
         jugador1Ejercito = intent.getStringExtra("JUGADOR1_EJERCITO") ?: ""
         jugador2Nombre = intent.getStringExtra("JUGADOR2_NOMBRE") ?: ""
@@ -69,24 +71,45 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         when (v?.id) {
             binding.reset.id -> resetear(v)
             binding.resetenemy.id -> resetear(v)
-            binding.sumar1.id -> binding.Contador1.text =
-                (binding.Contador1.text.toString().toInt() + 1).toString()
-            binding.sumar2.id -> binding.Contador1.text =
-                (binding.Contador1.text.toString().toInt() + 2).toString()
-            binding.sumar5.id -> binding.Contador1.text =
-                (binding.Contador1.text.toString().toInt() + 5).toString()
-            binding.sumar1enemy.id -> binding.Contador2.text =
-                (binding.Contador2.text.toString().toInt() + 1).toString()
-            binding.sumar2enemy.id -> binding.Contador2.text =
-                (binding.Contador2.text.toString().toInt() + 2).toString()
-            binding.sumar5enemy.id -> binding.Contador2.text =
-                (binding.Contador2.text.toString().toInt() + 5).toString()
+            binding.sumar1.id -> {
+                binding.Contador1.text = (binding.Contador1.text.toString().toInt() + 1).toString()
+                updateBackground()
+            }
+
+            binding.sumar2.id -> {
+                binding.Contador1.text = (binding.Contador1.text.toString().toInt() + 2).toString()
+                updateBackground()
+            }
+
+            binding.sumar5.id -> {
+                binding.Contador1.text = (binding.Contador1.text.toString().toInt() + 5).toString()
+                updateBackground()
+            }
+
+            binding.sumar1enemy.id -> {
+                binding.Contador2.text = (binding.Contador2.text.toString().toInt() + 1).toString()
+                updateBackground()
+            }
+
+            binding.sumar2enemy.id -> {
+                binding.Contador2.text = (binding.Contador2.text.toString().toInt() + 2).toString()
+                updateBackground()
+            }
+
+            binding.sumar5enemy.id -> {
+                binding.Contador2.text = (binding.Contador2.text.toString().toInt() + 5).toString()
+                updateBackground()
+            }
+
             binding.commandplus1.id -> binding.combatpoints1.text =
                 (binding.combatpoints1.text.toString().toInt() + 1).toString()
+
             binding.commandplus1enemy.id -> binding.combarpoints2.text =
                 (binding.combarpoints2.text.toString().toInt() + 1).toString()
+
             binding.commandminus1.id -> binding.combatpoints1.text =
                 (binding.combatpoints1.text.toString().toInt() - 1).toString()
+
             binding.commandminus1enemy.id -> binding.combarpoints2.text =
                 (binding.combarpoints2.text.toString().toInt() - 1).toString()
         }
@@ -99,23 +122,62 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    // Function to save game result to Firebase
-    fun saveGameResultToFirebase() {
+    private val armyImages = mapOf(
+        "Forjados en la tormenta" to R.drawable.forjados_en_la_tormenta,
+        "Clanes Orruks" to R.drawable.clanes_orruks,
+        "Esclavos de la oscuridad" to R.drawable.esclavos_de_la_oscuridad,
+        "Lumineth soberanos" to R.drawable.lumineth_soberanos,
+        "Hijos de Behemat" to R.drawable.hijos_de_behemat,
+        "Agusanados de Nurgle" to R.drawable.agusanados_de_nuegle,
+        "Masticatribus Ogors" to R.drawable.mastcatribus_ogors,
+        "Necroseñores Pudrealmas" to R.drawable.necroseniores_pudrealmas,
+        "Tipejoz nokturnoz" to R.drawable.tipejoz_nokturnoz,
+        "Seraphones" to R.drawable.seraphon,
+        "Profundos Idoneth" to R.drawable.profundos_idoneth,
+        "Noctánimas" to R.drawable.noctanimas,
+        "Sylvaneth" to R.drawable.sylvaneth,
+        "Discípulos de Tzeentch" to R.drawable.discipulos_de_tzeentch,
+        "Osiarcas Cosechahuesos" to R.drawable.osiarcas_cosechahuesos,
+        "Cortes Comecarne" to R.drawable.cortes_comecarne,
+        "Hedonitas de Slaanesh" to R.drawable.hedonitas_de_slaanesh,
+        "Filos de Khorne" to R.drawable.filos_de_khorne,
+        "Altos Señores Kharadron" to R.drawable.altos_seniores_kharadron,
+        "Ciudades de Sigmar" to R.drawable.ciudades_de_sigmar,
+        "Matafuegos" to R.drawable.matafuegos,
+        "Hijas de Khaine" to R.drawable.hijas_de_khaine,
+        "Skaven" to R.drawable.skaven
+    )
+
+    // funcion que guarda los datos de la partida en firebase
+    private fun saveGameResultToFirebase() {
         try {
             val database = FirebaseDatabase.getInstance()
             val historialRef = database.getReference("historial")
 
-            // Get current points for both players
+            // recogemos los puntos de cada jugador
             val puntosJugador1 = binding.Contador1.text.toString().toInt()
             val puntosJugador2 = binding.Contador2.text.toString().toInt()
 
-            // Determine the winner based on points
-            val ganador = if (puntosJugador1 > puntosJugador2) jugador1Nombre else jugador2Nombre
+            // indicamos el ganador segun la puntuacion
+            val ganador = if (puntosJugador1 > puntosJugador2) {
+                // asociao el ejercito elegido del jugador 1 con la imagen
+                binding.root.setBackgroundResource(
+                    armyImages[jugador1Ejercito] ?: R.mipmap.simbolonurgle
+                ) // ponemos un background por defecto si no encuentra el ejercito
+                jugador1Nombre
+            } else {
+                // lo mismo pero al jugador 2
+                binding.root.setBackgroundResource(
+                    armyImages[jugador2Ejercito] ?: R.mipmap.simbolonurgle
+                )
+                jugador2Nombre
+            }
 
-            // Get current date and time
-            val fechaHora = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+            // coge la fecha y hora actual del guardado
+            val fechaHora =
+                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 
-            // Create the data object to save
+            // creamos un objeto con los datos de la partida
             val gameData = HistorialData(
                 jugador1Nombre = jugador1Nombre,
                 jugador2Nombre = jugador2Nombre,
@@ -124,19 +186,38 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 fechaHora = fechaHora,
                 ganador = ganador,
                 puntosJugador1 = puntosJugador1,
-                puntosJugador2 = puntosJugador2
+                puntosJugador2 = puntosJugador2,
+
             )
 
-            // Save to Firebase
+            // salvamos el objeto en firebase
             historialRef.push().setValue(gameData)
                 .addOnSuccessListener {
                     Toast.makeText(this, "Partida guardada en el historial", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error al guardar la partida: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Error al guardar la partida: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         } catch (e: Exception) {
             Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+    //creamos la funcion que cambiará el background segun la puntuacion
+    private fun updateBackground() {
+        val puntosJugador1 = binding.Contador1.text.toString().toInt()
+        val puntosJugador2 = binding.Contador2.text.toString().toInt()
+
+        if (puntosJugador1 > puntosJugador2) {
+            // asociamos el ejercito elegido del jugador 1 con la imagen
+            binding.root.setBackgroundResource(armyImages[jugador1Ejercito] ?: R.mipmap.simbolonurgle) // Use army1_image as fallback
+        } else if (puntosJugador2 > puntosJugador1) {
+            // asicoamos el ejercito elegido del jugador 2 con la imagen
+            binding.root.setBackgroundResource(armyImages[jugador2Ejercito] ?: R.mipmap.simbolonurgle) // Use army2_image as fallback
+        } else {
+            // en caso de empate ponemos un background por defecto
+            binding.root.setBackgroundResource(R.mipmap.simbolonurgle) // Default background color
         }
     }
 }

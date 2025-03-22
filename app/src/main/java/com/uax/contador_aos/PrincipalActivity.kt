@@ -1,6 +1,7 @@
 package com.uax.contador_aos
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -18,6 +19,7 @@ class PrincipalActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         setContentView(R.layout.activity_principal)
 
         database = FirebaseDatabase.getInstance()
@@ -30,19 +32,19 @@ class PrincipalActivity : AppCompatActivity() {
         val buttonHistorial: Button = findViewById(R.id.buttonHistorial)
 
 
-        // Configurar los Spinner con los ejércitos
+        // Configuro los Spinner con los ejércitos
         val ejercitos = resources.getStringArray(R.array.ejercitos)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ejercitos)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerEjercito1.adapter = adapter
         spinnerEjercito2.adapter = adapter
 
-        // Configurar el botón para continuar
+        // Configuro el botón para continuar
         buttonContinuar.setOnClickListener {
             val nombreJugador1 = editTextJugador1.text.toString()
             val nombreJugador2 = editTextJugador2.text.toString()
 
-            // Validate input
+            // aseguramos que los campos no esten vacios
             if (nombreJugador1.isEmpty() || nombreJugador2.isEmpty()) {
                 Toast.makeText(this, "Por favor, ingrese nombres para ambos jugadores", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 
-// Make sure this class matches your database structure
+// creamso la clase de la base de datos
 data class HistorialData(
     val jugador1Nombre: String = "",
     val jugador2Nombre: String = "",
@@ -42,41 +42,41 @@ class HistorialActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_historial)
 
-        // Set up the window insets
+        // configuro el padding de la vista
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Initialize views - make sure these IDs match your layout
+        // inicializamos las vistas
         recyclerView = findViewById(R.id.recyclerViewHistorial)
         emptyView = findViewById(R.id.emptyView)
         loadingIndicator = findViewById(R.id.loadingIndicator)
 
-        // Configure RecyclerView
+        // configuro el recycler view
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = HistorialAdapter(historialList)
         recyclerView.adapter = adapter
 
-        // Load data from Firebase
+        // cargamos los datos de firebase
         loadHistorialFromFirebase()
     }
 
     private fun loadHistorialFromFirebase() {
         try {
-            // Show loading indicator
+            // mostramos el indicador de carga
             loadingIndicator.visibility = View.VISIBLE
             emptyView.visibility = View.GONE
 
             val database = FirebaseDatabase.getInstance()
             val historialRef = database.getReference("historial")
 
-            Log.d(TAG, "Attempting to load data from Firebase")
+            Log.d(TAG, "Cargamos datos desde Firebase")
 
             historialRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    Log.d(TAG, "Data received from Firebase, processing...")
+                    Log.d(TAG, "Datos recibidos de Firebase, procesando...")
                     historialList.clear()
 
                     for (gameSnapshot in snapshot.children) {
@@ -106,7 +106,7 @@ class HistorialActivity : AppCompatActivity() {
                     if (historialList.isEmpty()) {
                         emptyView.visibility = View.VISIBLE
                         recyclerView.visibility = View.GONE
-                        Log.d(TAG, "No history data found")
+                        Log.d(TAG, "No se encontraron datos")
                     } else {
                         emptyView.visibility = View.GONE
                         recyclerView.visibility = View.VISIBLE
@@ -130,7 +130,7 @@ class HistorialActivity : AppCompatActivity() {
                 }
             })
         } catch (e: Exception) {
-            Log.e(TAG, "Error connecting to Firebase: ${e.message}", e)
+            Log.e(TAG, "Error de conexion a Firebase: ${e.message}", e)
             loadingIndicator.visibility = View.GONE
             emptyView.visibility = View.VISIBLE
 
@@ -147,7 +147,7 @@ class HistorialAdapter(private val historialList: List<HistorialData>) :
     RecyclerView.Adapter<HistorialAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        // Make sure these IDs match your item_historial.xml
+        // creo las vistas del item de la lista
         val fechaTextView: TextView = itemView.findViewById(R.id.textViewFecha)
         val jugadoresTextView: TextView = itemView.findViewById(R.id.textViewJugadores)
         val resultadoTextView: TextView = itemView.findViewById(R.id.textViewResultado)
