@@ -14,8 +14,7 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity(), OnClickListener {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var selectedArmy1: String
-    private lateinit var selectedArmy2: String
+
 
     // Informacion de los jugadores
     private var jugador1Nombre: String = ""
@@ -36,12 +35,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         jugador2Nombre = intent.getStringExtra("JUGADOR2_NOMBRE") ?: ""
         jugador2Ejercito = intent.getStringExtra("JUGADOR2_EJERCITO") ?: ""
 
-        window.decorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        or View.SYSTEM_UI_FLAG_FULLSCREEN
-                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                )
-
+        
         binding.sumar1.setOnClickListener(this)
         binding.sumar2.setOnClickListener(this)
         binding.sumar5.setOnClickListener(this)

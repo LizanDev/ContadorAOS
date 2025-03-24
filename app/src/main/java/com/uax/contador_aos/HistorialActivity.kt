@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+import android.widget.ImageView
 
 // creamso la clase de la base de datos
 data class HistorialData(
@@ -145,6 +146,33 @@ class HistorialActivity : AppCompatActivity() {
 
 class HistorialAdapter(private val historialList: List<HistorialData>) :
     RecyclerView.Adapter<HistorialAdapter.ViewHolder>() {
+    
+    // Mapeo de nombres de ejércitos a recursos de imágenes (igual que en MainActivity)
+    private val armyImages = mapOf(
+        "Forjados en la tormenta" to R.drawable.forjados_en_la_tormenta,
+        "Clanes Orruks" to R.drawable.clanes_orruks,
+        "Esclavos de la oscuridad" to R.drawable.esclavos_de_la_oscuridad,
+        "Lumineth soberanos" to R.drawable.lumineth_soberanos,
+        "Hijos de Behemat" to R.drawable.hijos_de_behemat,
+        "Agusanados de Nurgle" to R.drawable.agusanados_de_nuegle,
+        "Masticatribus Ogors" to R.drawable.mastcatribus_ogors,
+        "Necroseñores Pudrealmas" to R.drawable.necroseniores_pudrealmas,
+        "Tipejoz nokturnoz" to R.drawable.tipejoz_nokturnoz,
+        "Seraphones" to R.drawable.seraphon,
+        "Profundos Idoneth" to R.drawable.profundos_idoneth,
+        "Noctánimas" to R.drawable.noctanimas,
+        "Sylvaneth" to R.drawable.sylvaneth,
+        "Discípulos de Tzeentch" to R.drawable.discipulos_de_tzeentch,
+        "Osiarcas Cosechahuesos" to R.drawable.osiarcas_cosechahuesos,
+        "Cortes Comecarne" to R.drawable.cortes_comecarne,
+        "Hedonitas de Slaanesh" to R.drawable.hedonitas_de_slaanesh,
+        "Filos de Khorne" to R.drawable.filos_de_khorne,
+        "Altos Señores Kharadron" to R.drawable.altos_seniores_kharadron,
+        "Ciudades de Sigmar" to R.drawable.ciudades_de_sigmar,
+        "Matafuegos" to R.drawable.matafuegos,
+        "Hijas de Khaine" to R.drawable.hijas_de_khaine,
+        "Skaven" to R.drawable.skaven
+    )
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // creo las vistas del item de la lista
@@ -152,6 +180,7 @@ class HistorialAdapter(private val historialList: List<HistorialData>) :
         val jugadoresTextView: TextView = itemView.findViewById(R.id.textViewJugadores)
         val resultadoTextView: TextView = itemView.findViewById(R.id.textViewResultado)
         val ganadorTextView: TextView = itemView.findViewById(R.id.textViewGanador)
+        val imageViewArmy: ImageView = itemView.findViewById(R.id.imageViewArmy)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -169,6 +198,34 @@ class HistorialAdapter(private val historialList: List<HistorialData>) :
         holder.jugadoresTextView.text = "${item.jugador1Nombre} (${item.jugador1Ejercito}) vs ${item.jugador2Nombre} (${item.jugador2Ejercito})"
         holder.resultadoTextView.text = "${item.puntosJugador1} - ${item.puntosJugador2}"
         holder.ganadorTextView.text = "Ganador: ${item.ganador}"
+        
+        // Determinar qué ejército ganó para mostrar su imagen
+        val ejercitoGanador = if (item.ganador == item.jugador1Nombre) {
+            item.jugador1Ejercito
+        } else {
+            item.jugador2Ejercito
+        }
+        
+        // Usar el mapeo de imágenes para obtener el recurso correspondiente
+        try {
+            // Obtener el recurso de imagen del mapa usando el nombre del ejército ganador
+            val resourceId = armyImages[ejercitoGanador]
+            
+            if (resourceId != null) {
+                // Si se encuentra la imagen en el mapeo, mostrarla
+                holder.imageViewArmy.setImageResource(resourceId)
+                holder.imageViewArmy.visibility = View.VISIBLE
+            } else {
+                // Si no se encuentra en el mapeo, usar una imagen por defecto
+                holder.imageViewArmy.setImageResource(R.mipmap.simbolonurgle)
+                holder.imageViewArmy.visibility = View.VISIBLE
+            }
+        } catch (e: Exception) {
+            Log.e("HistorialAdapter", "Error al cargar imagen: ${e.message}")
+            // En caso de error, usar imagen por defecto en lugar de ocultar
+            holder.imageViewArmy.setImageResource(R.mipmap.simbolonurgle)
+            holder.imageViewArmy.visibility = View.VISIBLE
+        }
     }
 }
 
